@@ -1,6 +1,6 @@
-===========================================
-1. How does the flipping cards code works?
-===========================================
+===================================================
+1. How does the flipping cards code works? - CHECK
+===================================================
 - the whole .card has a <div> for itself;
 
 - it has two <div> inside:
@@ -25,10 +25,10 @@ only two options are possible:
 
 - each click on a card counts as a "move".
 
-=================================================================
-2. How will I implement that the number of cards choosen
-by the player will be the number of cards displayed on the HTML?
-=================================================================
+=========================================================================
+2. How will I implement that the number of cards choosen         - CHECK
+by the player will be the number of cards displayed on the HTML? 
+=========================================================================
 
 - I will have to change the HTML for the .deck considering the
 user's choice.
@@ -40,3 +40,58 @@ user's choice.
 - Easy part:
     - each card has the same HTML code
     - only the front image changes
+
+==================================================================
+3. What do I want to do now?
+    - Now I want to verify if the image of one flipped card
+    is equal to the image of another flipped card.
+==================================================================
+
+- How will I solve this? IDEA:
+	- when I click on a card, I get the name of it's image
+	and save it
+	- once I have two names, I compare them
+
+- How to implement this? IDEA:
+	- I can save each name on a variable;
+	- I can build a function that recieves both names as parameters
+	and compare them;
+	- this function must be called at each click, so that each click
+	serves to verify the cards 
+
+	- if the names are the same, the cards stay facing up;
+	- if the names are NOT the same, the cards go back facing down.
+
+=====================================================================
+4. What I do want to do now?
+    - Now I want that every card has a different image AND that
+    every image appears twice.
+=====================================================================
+
+- How do I want to do this? IDEA:
+    - to build a list with all available images - OK
+    - from this list, create another list, with as many images
+    as the number of cards selected by the player, in such a way
+    that every image appears twice, meaning that the number of different
+    images equals half of the number of cards - OK
+    - after I want to shuffle this second list
+    - then I want every image, each one at a time, as they are being
+    loaded on the screen, recieves a image from the shuffled list.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
