@@ -1,0 +1,42 @@
+===========================================
+1. How does the flipping cards code works?
+===========================================
+- the whole .card has a <div> for itself;
+
+- it has two <div> inside:
+    - .front-side
+    - .back-side
+
+- each side has it's own .face
+- all .back-side's are the same
+- each .front-face has a different image, with a pair in the deck
+
+- .front-face starts running with it's face turned to 180 degrees
+- .back-face starts running with it's turned up, meaning 0 degress.
+
+- when the card is clicked, the dynamic inverts:
+    - .front-face turns to 0 degrees
+    - .back-face turns to 180 degrees
+
+- when two cards are turnep up (front-face to 0 degrees),
+only two options are possible:
+    - MATCH: both cards front-face image are the same
+    - no-MATCH: their image is different
+
+- each click on a card counts as a "move".
+
+=================================================================
+2. How will I implement that the number of cards choosen
+by the player will be the number of cards displayed on the HTML?
+=================================================================
+
+- I will have to change the HTML for the .deck considering the
+user's choice.
+
+- It means that my javaScript code will have to:
+    - get this information
+    - and then alter the innerHTML of .deck considering it
+
+- Easy part:
+    - each card has the same HTML code
+    - only the front image changes
