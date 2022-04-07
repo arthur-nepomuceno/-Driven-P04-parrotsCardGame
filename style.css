@@ -22,8 +22,8 @@ body {
 }
 
 .deck {
-    width: 75vw;
-    height: fit-content;
+    min-width: 270px;
+    height: 326px;
     margin-top: 48px;
 
     display: flex;
@@ -31,13 +31,17 @@ body {
     justify-content: space-between;
     align-items: center;
 
-    border: 1px dashed black;
-    box-sizing: border-box;
+    /*border: 1px dashed black;
+    box-sizing: border-box;*/
 }
 
 .card {
     width: 118px;
     height: 146px;
+
+    margin-bottom: 34px;
+    margin-left: 16px;
+    margin-right: 16px;
 
     position: relative;
     

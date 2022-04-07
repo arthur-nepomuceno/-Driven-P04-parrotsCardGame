@@ -63,7 +63,7 @@ user's choice.
 	- if the names are NOT the same, the cards go back facing down.
 
 =====================================================================
-4. What I do want to do now?
+4. What do I want to do now?
     - Now I want that every card has a different image AND that
     every image appears twice.
 =====================================================================
@@ -77,6 +77,27 @@ user's choice.
     - after I want to shuffle this second list
     - then I want every image, each one at a time, as they are being
     loaded on the screen, recieves a image from the shuffled list.
+
+=======================================================================
+5. What do I want to do now?
+    - Now I want to compare the cards. I want, at every two cards
+    I flip, to check if they are equal or not. If they are, cards stay
+    facing up. If not, they go back facing down.
+=======================================================================
+
+- How do I want to do this? IDEA:
+    - Every time I click on a card, I want to save the name
+    of it's image somewhere.
+    - Every time I have two names, I check if they are the same.
+    - If they are the same, they stay facing up.
+    - If they are not, after 1 sec, they go back facing down.
+    
+
+
+
+
+
+
 
 
 

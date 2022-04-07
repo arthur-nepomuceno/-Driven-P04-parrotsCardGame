@@ -8,7 +8,7 @@ while (numberOfCards % 2 != 0 || numberOfCards < 4 || numberOfCards > 14) {
 
 
 
-// bringing the list of images to work with
+// bringing in the list of images to work with
 let listOfImages = [
     "bobrossparrot.gif","explodyparrot.gif",
     "fiestaparrot.gif","metalparrot.gif",
@@ -22,20 +22,23 @@ function deckOfImages(n) {
         deckOfImages.push(listOfImages[i]);
         deckOfImages.push(listOfImages[i]);
     }
-    // shufflig the deck
+    
     return deckOfImages;
 }
 
-// function to shuffle he deck
+// function to shuffle the deck
 function comparer() { 
     return Math.random() - 0.5; 
 }
 
+// shufflig the deck
 let myDeckOfImages = deckOfImages(numberOfCards).sort(comparer);
 
 
 // creating the display of the cards on the screen
 const deck = document.querySelector(".deck");
+deck.setAttribute(`style`, `width: ${(numberOfCards/2 * 118) + ((numberOfCards/2) * 34)}px`)
+
 for (let n = 0; n < numberOfCards; n++) {
     // bringing card html inside javaScript code
     let card =  `<div class="card" onclick="flipCard(this)">
@@ -50,10 +53,70 @@ for (let n = 0; n < numberOfCards; n++) {
     deck.innerHTML += card;
 }
 
+// creating function to flip the cards
 function flipCard(card) {
     let backFace = card.querySelector(".back-face")
     let frontFace = card.querySelector(".front-face")
 
     backFace.setAttribute("style", "transform: rotateY(180deg)");
-    frontFace.setAttribute("style", "transform: rotate(0deg);")
+    frontFace.setAttribute("style", "transform: rotateY(0deg);");
+
+    getImage(frontFace);
+    compareImages(flippedCards);
+    
+    
 }
+
+// getting the name of the image on the card flipped
+// and saving it on a list of flipped cards
+let flippedCards = ["",""]
+function getImage(cardFace){
+    let image = cardFace.querySelector("img").src;
+
+    if (flippedCards[0] === "") {
+        flippedCards[0] = image;
+    } else {
+        flippedCards[1] = image;
+    }
+}
+
+// comparing images and cleaning the list after comparison
+// it returns "true" if they are equal
+// it returns "false" if they are not
+function compareImages(arr){
+    let imageOne = arr[0];
+    let imageTwo = arr[1];
+    
+    if (imageOne !== ""  && imageTwo !== ""){
+        if (imageOne === imageTwo) {
+            alert("equal");
+            arr[0] = "";
+            arr[1] = "";
+        } else {
+            alert("different");
+            // if they are different, I need to flip back the cards
+            // I can do it by changing their rotateY values.
+            // but to get this value for each card, I need to use
+            // each image name to get it's card properties an change it.
+            arr[0] = "";
+            arr[1] = "";        
+        }
+    }
+}
+
+/*
+// flipping cards back if they are different
+function flipBackCards(arr){
+    let imageOne = arr[0];
+    let imageTwo = arr[1];
+    if (imageOne !== ""  && imageTwo !== ""){
+        if (imageOne === imageTwo){
+            arr[0] = "";
+            arr[1] = ""
+        } else {
+            let cardOne = 
+        }
+    }
+
+}
+*/
