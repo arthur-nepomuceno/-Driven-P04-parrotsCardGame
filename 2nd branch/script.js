@@ -119,7 +119,7 @@ function isEqual() {
 
 function isOver() {
     if (score == numberOfCards/2) {
-        alert("end game");
+        alert("Fim de jogo");
         alert(`Total flips: ${flips}`);
     }
 }
