@@ -31,6 +31,7 @@ function comparer() {
 let myDeckOfImages = deckOfImages(numberOfCards).sort(comparer);
 // creating the display of the cards on the screen
 const deck = document.querySelector(".deck");
+deck.setAttribute(`style`, `width: ${(numberOfCards/2 * 118) + ((numberOfCards/2) * 34)}px`)
 for (let n = 0; n < numberOfCards; n++) {
     // bringing card html inside javaScript code
     let card =  `<div class="card" onclick="flipCard(this)">
@@ -55,6 +56,8 @@ let flippedCards = [];
 
 // creating the function to flip the cards
 function flipCard(clicked) {
+    flips++
+
     card = clicked;
     back = card.querySelector(".back");
     front = card.querySelector(".front");
@@ -71,11 +74,8 @@ function flipCard(clicked) {
 
     flippedCards.push(flippedCard);
 
-    if(flippedCards.length == 2) {
-        isEqual();        
-    }
-    flips++
-    isOver();
+    isEqual();
+    isOver();    
 }
 
 function unflipCards() {
@@ -86,40 +86,51 @@ function unflipCards() {
     // get the front of the second card and turn it
 
     let backOne = flippedCards[0].back
-    backOne.classList.toggle("flip");
     let frontOne = flippedCards[0].front
+    backOne.classList.toggle("flip");
     frontOne.classList.toggle("flip");
 
     let backTwo = flippedCards[1].back
-    backTwo.classList.toggle("flip");
     let frontTwo = flippedCards[1].front
+    backTwo.classList.toggle("flip");
     frontTwo.classList.toggle("flip");
 
     flippedCards = []; // coloquei aqui só para fazer rodar o setTimeout
 }
 
 function isEqual() {
-    // get the first card image in flippedCards
-    // get the second card image in flippedCards
-    // compare them
-    // return true if they are equal
-    // return false if they are not
-    let imageOne = flippedCards[0].image;
-    let imageTwo = flippedCards[1].image;
+    if(flippedCards.length == 2) {
+        // get the first card image in flippedCards
+        // get the second card image in flippedCards
+        // compare them
+        // return true if they are equal
+        // return false and unflip them, if they are not
+        let imageOne = flippedCards[0].image;
+        let imageTwo = flippedCards[1].image;
 
-    if (imageOne == imageTwo) {
-        alert(true);
-        flippedCards = [];
-        score++
-    } else {
-        alert(false);
-        setTimeout(unflipCards, 1 * 1000);        
-    }
+        if (imageOne == imageTwo) {
+            flippedCards = [];
+            score++
+        } else {
+            setTimeout(unflipCards, 1 * 1000);        
+        }
+    }    
 }
 
 function isOver() {
     if (score == numberOfCards/2) {
-        alert("Fim de jogo");
-        alert(`Total flips: ${flips}`);
+        setTimeout(endMessage, 0.5 * 1000);   
     }
+}
+function endMessage() {
+    alert(`FIM DE JOGO! Você ganhou em ${flips} jogadas!`);
+    let answer = "";
+    while (answer != "sim" && answer != "não") {
+        answer = prompt('Quer jogar de novo? Digite "sim" ou "não"');
+        if (answer == "sim") {
+            document.location.reload();
+        } else if (answer == "não") {
+            alert("Lhe agradeço por jogar!");
+        }
+    }    
 }

@@ -8,7 +8,22 @@ body {
     align-items: center;
 }
 
-.title {
+.top {
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.timer, .chronometer {
+    min-width: 90px;
+    height: 63px;
+    
+    border: 1px dashed black;
+    box-sizing: border-box;
+}
+
+.title p {
     width: fit-content;
     height: 63px;
     margin-top: 40px;
@@ -19,11 +34,12 @@ body {
     font-size: 56px;
     line-height: 66px;
     color: #75b79e;
+    text-align: center;
 }
 
 .deck {
-    width: 75vw;
-    height: fit-content;
+    min-width: 270px;
+    height: 326px;
     margin-top: 48px;
 
     display: flex;
@@ -31,13 +47,17 @@ body {
     justify-content: space-between;
     align-items: center;
 
-    border: 1px dashed black;
-    box-sizing: border-box;
+    /*border: 1px dashed black;
+    box-sizing: border-box;*/
 }
 
 .card {
     width: 118px;
     height: 146px;
+
+    margin-bottom: 34px;
+    margin-left: 16px;
+    margin-right: 16px;
 
     position: relative;
     

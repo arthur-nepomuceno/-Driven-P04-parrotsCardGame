@@ -92,13 +92,6 @@ user's choice.
     - If they are the same, they stay facing up.
     - If they are not, after 1 sec, they go back facing down.
 
-=======================================================================
-5.1 What do I want to do now?
-    - Now I want to flip the cards back if they are different
-=======================================================================
-
-- How do I want to do this? IDEA:
-
 
 
 
