@@ -41,10 +41,10 @@ for (let n = 0; n < numberOfCards; n++) {
     // bringing card html inside javaScript code
     let card =  `<div class="card" onclick="flipCard(this)">
                     <div class="face back-face">
-                        <img src="/img/back.png" alt="">
+                        <img src="./img/back.png" alt="">
                     </div>
                     <div class="face front-face">
-                        <img src="/img/${myDeckOfImages[n]}" alt="" srcset="">
+                        <img src="./img/${myDeckOfImages[n]}" alt="" srcset="">
                     </div>
                 </div>`
 
