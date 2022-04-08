@@ -69,7 +69,7 @@ function flipCard(card) {
 
     if (flips == 2) {
         flips = 0;
-        setTimeout(flipBackCards, 1 * 1000)                        
+        setTimeout(flipBackCards, 1 * 1000)                    
     }    
 }
 
@@ -86,52 +86,47 @@ function getImage(cardFace){
     }
 }
 
-// comparing images and cleaning the list after comparison
-// it returns "true" if they are equal
-// it returns "false" if they are not
-function compareImages(arr){
+// comparing images
+// it returns "true" if they are different
+// it returns "false" if they are equal
+function isDifferent(arr){
     let imageOne = arr[0];
     let imageTwo = arr[1];
     
-    if (imageOne !== ""  && imageTwo !== ""){
-        if (imageOne.src === imageTwo.src) {
-            return true        
-        } else {
-            return false                  
-        }
-    }
+    if (imageOne !== ""  && imageTwo !== "" && imageOne.src !== imageTwo.src){
+        return true        
+    } else {
+        return false              
+    }    
 }
 
 
 // flipping cards back if they are different
 function flipBackCards(){
 
-    let imageOne = flippedCards[0];
-    let imageTwo = flippedCards[1];
+    if (isDifferent(flippedCards)) {    
+        //sequencia de codigo para virar as cartas de volta
+        // pegar o html de cada imagem pela posição na lista
+        // usar esse html para chegar na carta
+        // mudar os atributos da carta
+        let cardOneFrontFace = flippedCards[0].parentNode;
+        let cardOne = cardOneFrontFace.parentNode;
 
-    if (imageOne !== ""  && imageTwo !== "") {
-        if (imageOne.src !== imageTwo.src) {
-            //sequencia de codigo para virar as cartas de volta
-            // pegar o html de cada imagem pela posição na lista
-            // usar esse html para chegar na carta
-            // mudar os atributos da carta
-            let cardOneFrontFace = flippedCards[0].parentNode;
-            let cardOne = cardOneFrontFace.parentNode;
+        let cardTwoFrontFace = flippedCards[1].parentNode;
+        let cardTwo = cardTwoFrontFace.parentNode;
 
-            let cardTwoFrontFace = flippedCards[1].parentNode;
-            let cardTwo = cardTwoFrontFace.parentNode;
+        let cardOneBackFace= cardOne.querySelector(".back-face");
+        let cardTwoBackFace= cardTwo.querySelector(".back-face");
 
-            let cardOneBackFace= cardOne.querySelector(".back-face");
-            let cardTwoBackFace= cardTwo.querySelector(".back-face");
-
-            cardOneBackFace.setAttribute("style", "transform: rotateY(0deg)");
-            cardOneFrontFace.setAttribute("style", "transform: rotateY(180deg);");
-            cardTwoBackFace.setAttribute("style", "transform: rotateY(0deg)");
-            cardTwoFrontFace.setAttribute("style", "transform: rotateY(180deg);")
-        }
+        cardOneBackFace.setAttribute("style", "transform: rotateY(0deg)");
+        cardOneFrontFace.setAttribute("style", "transform: rotateY(180deg);");
+        cardTwoBackFace.setAttribute("style", "transform: rotateY(0deg)");
+        cardTwoFrontFace.setAttribute("style", "transform: rotateY(180deg);");       
     }
+
     flippedCards[0] = "";
     flippedCards[1] = "";
+        
 }
 
 
