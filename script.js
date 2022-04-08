@@ -30,7 +30,6 @@ function deckOfImages(n) {
 function comparer() { 
     return Math.random() - 0.5; 
 }
-
 // shufflig the deck
 let myDeckOfImages = deckOfImages(numberOfCards).sort(comparer);
 
@@ -38,7 +37,6 @@ let myDeckOfImages = deckOfImages(numberOfCards).sort(comparer);
 // creating the display of the cards on the screen
 const deck = document.querySelector(".deck");
 deck.setAttribute(`style`, `width: ${(numberOfCards/2 * 118) + ((numberOfCards/2) * 34)}px`)
-
 for (let n = 0; n < numberOfCards; n++) {
     // bringing card html inside javaScript code
     let card =  `<div class="card" onclick="flipCard(this)">
@@ -54,24 +52,32 @@ for (let n = 0; n < numberOfCards; n++) {
 }
 
 // creating function to flip the cards
+let flips = 0;
+let totalFlips = 0;
 function flipCard(card) {
     let backFace = card.querySelector(".back-face")
     let frontFace = card.querySelector(".front-face")
-
+    
     backFace.setAttribute("style", "transform: rotateY(180deg)");
     frontFace.setAttribute("style", "transform: rotateY(0deg);");
 
     getImage(frontFace);
-    compareImages(flippedCards);
-    
-    
+
+    flips++
+    totalFlips++
+    //alert(`Jogada atual: ${flips}º. Jogadas totais: ${totalFlips}.`)
+
+    if (flips == 2) {
+        flips = 0;
+        setTimeout(flipBackCards, 1 * 1000)                        
+    }    
 }
 
 // getting the name of the image on the card flipped
 // and saving it on a list of flipped cards
 let flippedCards = ["",""]
 function getImage(cardFace){
-    let image = cardFace.querySelector("img").src;
+    let image = cardFace.querySelector("img");
 
     if (flippedCards[0] === "") {
         flippedCards[0] = image;
@@ -88,35 +94,47 @@ function compareImages(arr){
     let imageTwo = arr[1];
     
     if (imageOne !== ""  && imageTwo !== ""){
-        if (imageOne === imageTwo) {
-            alert("equal");
-            arr[0] = "";
-            arr[1] = "";
+        if (imageOne.src === imageTwo.src) {
+            return true        
         } else {
-            alert("different");
-            // if they are different, I need to flip back the cards
-            // I can do it by changing their rotateY values.
-            // but to get this value for each card, I need to use
-            // each image name to get it's card properties an change it.
-            arr[0] = "";
-            arr[1] = "";        
+            return false                  
         }
     }
 }
 
-/*
+
 // flipping cards back if they are different
-function flipBackCards(arr){
-    let imageOne = arr[0];
-    let imageTwo = arr[1];
-    if (imageOne !== ""  && imageTwo !== ""){
-        if (imageOne === imageTwo){
-            arr[0] = "";
-            arr[1] = ""
-        } else {
-            let cardOne = 
+function flipBackCards(){
+
+    let imageOne = flippedCards[0];
+    let imageTwo = flippedCards[1];
+
+    if (imageOne !== ""  && imageTwo !== "") {
+        if (imageOne.src !== imageTwo.src) {
+            //sequencia de codigo para virar as cartas de volta
+            // pegar o html de cada imagem pela posição na lista
+            // usar esse html para chegar na carta
+            // mudar os atributos da carta
+            let cardOneFrontFace = flippedCards[0].parentNode;
+            let cardOne = cardOneFrontFace.parentNode;
+
+            let cardTwoFrontFace = flippedCards[1].parentNode;
+            let cardTwo = cardTwoFrontFace.parentNode;
+
+            let cardOneBackFace= cardOne.querySelector(".back-face");
+            let cardTwoBackFace= cardTwo.querySelector(".back-face");
+
+            cardOneBackFace.setAttribute("style", "transform: rotateY(0deg)");
+            cardOneFrontFace.setAttribute("style", "transform: rotateY(180deg);");
+            cardTwoBackFace.setAttribute("style", "transform: rotateY(0deg)");
+            cardTwoFrontFace.setAttribute("style", "transform: rotateY(180deg);")
         }
     }
-
+    flippedCards[0] = "";
+    flippedCards[1] = "";
 }
-*/
+
+
+
+
+
