@@ -112,25 +112,72 @@ function isEqual() {
             flippedCards = [];
             score++
         } else {
-            setTimeout(unflipCards, 1 * 1000);        
+            setTimeout(unflipCards, 1 * 1500);        
         }
     }    
 }
 
 function isOver() {
     if (score == numberOfCards/2) {
-        setTimeout(endMessage, 0.5 * 1000);   
+        setTimeout(endMessage, 0.5 * 1000);
+        clearInterval(countingUp);
     }
 }
 function endMessage() {
-    alert(`FIM DE JOGO! Você ganhou em ${flips} jogadas!`);
+    alert(`FIM DE JOGO!
+    Total clicks: ${flips}.
+    Time passed: ${chronometer.innerHTML}`);
+
     let answer = "";
     while (answer != "sim" && answer != "não") {
         answer = prompt('Quer jogar de novo? Digite "sim" ou "não"');
         if (answer == "sim") {
-            document.location.reload();
+            reset();
         } else if (answer == "não") {
-            alert("Lhe agradeço por jogar!");
+            alert("Valeu por jogar!");
         }
     }    
 }
+
+let chronometer = document.querySelector(".chronometer p")
+
+let centiSeconds = 0;
+let deciSeconds = 0
+let seconds = 0;
+let decaSeconds = 0;
+let minuts = 0;
+
+function timeCountUp() {
+    centiSeconds++
+
+    if (centiSeconds == 10) {
+        deciSeconds++
+        centiSeconds = 0;
+    }
+
+    if (deciSeconds == 10) {
+        seconds ++
+        deciSeconds = 0;
+    }
+
+    if (seconds == 10) {
+        decaSeconds++
+        seconds = 0;
+    }
+
+    if (decaSeconds == 6) {
+        minuts ++
+        decaSeconds = 0;
+    }    
+    chronometer.innerHTML = `0${minuts}:${decaSeconds}${seconds}:${deciSeconds}${centiSeconds}`;
+}
+
+let countingUp = setInterval(timeCountUp, 1 * 10);
+
+function reset() {
+    document.location.reload();
+}
+
+
+
+

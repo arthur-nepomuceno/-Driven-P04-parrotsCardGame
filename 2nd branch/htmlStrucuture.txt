@@ -1,8 +1,0 @@
-.title
-
-.deck
-    .card
-        .back-face face
-            img
-        .front-face face
-            img
