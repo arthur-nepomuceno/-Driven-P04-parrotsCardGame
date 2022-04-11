@@ -28,7 +28,9 @@ function comparer() {
     return Math.random() - 0.5; 
 }
 // shufflig the deck
-let myDeckOfImages = deckOfImages(numberOfCards).sort(comparer);
+let deckShuffled = deckOfImages(numberOfCards).sort(comparer);
+
+
 // creating the display of the cards on the screen
 const deck = document.querySelector(".deck");
 deck.setAttribute(`style`, `width: ${(numberOfCards/2 * 118) + ((numberOfCards/2) * 34)}px`)
@@ -39,7 +41,7 @@ for (let n = 0; n < numberOfCards; n++) {
                         <img src="./img/back.png" alt="">
                     </div>
                     <div class="front flip">
-                        <img src="./img/${myDeckOfImages[n]}" alt="" srcset="">
+                        <img src="./img/${deckShuffled[n]}" alt="" srcset="">
                     </div>
                 </div>`
 
@@ -50,8 +52,8 @@ for (let n = 0; n < numberOfCards; n++) {
 let flips = 0;
 let score = 0;
 let card = "";
-let backFace = "";
-let frontFace = "";
+let back = "";
+let front = "";
 let flippedCards = [];
 
 // creating the function to flip the cards
@@ -63,14 +65,15 @@ function flipCard(clicked) {
     front = card.querySelector(".front");
     image = front.querySelector("img").src;
 
-    back.classList.toggle("flip");
-    front.classList.toggle("flip");
-
     let flippedCard = {card:"", back:"", front:"", image:""}; //a linha que fez a diferença
     flippedCard.card = card;
     flippedCard.back = back;
     flippedCard.front = front;
     flippedCard.image = image;
+
+    back.classList.toggle("flip");
+    front.classList.toggle("flip");
+    card.setAttribute("onclick", "");
 
     flippedCards.push(flippedCard);
 
@@ -79,22 +82,29 @@ function flipCard(clicked) {
 }
 
 function unflipCards() {
+    // get the first card and enables it to recieve clicks again
     // get the back of the first card and turn it
     // get the front of the first card and turn it
 
+    // get the second card and enables it to recieve clicks again
     // get the back of the second card and turn it
     // get the front of the second card and turn it
 
+    let cardOne = flippedCards[0].card
     let backOne = flippedCards[0].back
     let frontOne = flippedCards[0].front
     backOne.classList.toggle("flip");
     frontOne.classList.toggle("flip");
+    cardOne.setAttribute("onclick", "flipCard(this)");
 
+    let cardTwo = flippedCards[1].card
     let backTwo = flippedCards[1].back
     let frontTwo = flippedCards[1].front
     backTwo.classList.toggle("flip");
     frontTwo.classList.toggle("flip");
+    cardTwo.setAttribute("onclick", "flipCard(this)");
 
+    
     flippedCards = []; // coloquei aqui só para fazer rodar o setTimeout
 }
 
@@ -125,8 +135,8 @@ function isOver() {
 }
 function endMessage() {
     alert(`FIM DE JOGO!
-    Total clicks: ${flips}.
-    Time passed: ${chronometer.innerHTML}`);
+    Você ganhou em ${flips} jogadas!
+    Tempo de jogo: ${chronometer.innerHTML}`);
 
     let answer = "";
     while (answer != "sim" && answer != "não") {
@@ -140,14 +150,13 @@ function endMessage() {
 }
 
 let chronometer = document.querySelector(".chronometer p")
-
 let centiSeconds = 0;
 let deciSeconds = 0
 let seconds = 0;
 let decaSeconds = 0;
 let minuts = 0;
 
-function timeCountUp() {
+function timeCount() {
     centiSeconds++
 
     if (centiSeconds == 10) {
@@ -172,7 +181,7 @@ function timeCountUp() {
     chronometer.innerHTML = `0${minuts}:${decaSeconds}${seconds}:${deciSeconds}${centiSeconds}`;
 }
 
-let countingUp = setInterval(timeCountUp, 1 * 10);
+let countingUp = setInterval(timeCount, 1 * 10);
 
 function reset() {
     document.location.reload();

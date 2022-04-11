@@ -14,7 +14,7 @@ body {
 }
 
 .top {
-    width: 75%;
+    min-width: 90%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -120,12 +120,12 @@ body {
     height: 50px;
 }
 
+
 .flip {
-    transform: rotateY(180deg);
-    
+    transform: rotateY(180deg); 
 }
 
-@media (max-width: 1055px) {
+@media (max-width: 992px) {
     .reset button{
         font-size: 15px;
         display: flex;
@@ -155,12 +155,17 @@ body {
     }
 }
 
-@media(max-width: 801px) {
+@media(max-width: 768px) {
     .top {
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
         margin-top: 25px;
+    }
+
+    .title p {
+        width: 250px;
+        font-size: 36px;
     }
 
     .deck {
@@ -169,22 +174,7 @@ body {
     }
 }
 
-
-@media (max-width: 455px) {
-    .title p {
-        width: 250px;
-    }
-
-    .deck {
-        max-width: 304px;        
-    }
-}
-
-@media (max-width: 335px) {
-    .title p {
-        font-size: 36px;
-    }
-
+@media (max-width: 576px) {
     .deck {
         max-width: 117px;
     }
