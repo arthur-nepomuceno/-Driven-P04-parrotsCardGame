@@ -1,0 +1,12 @@
+body
+    .top
+        .reset
+        .title
+        .chronometer
+
+    .deck
+        .card
+            .back
+                img
+            .front flip
+                img

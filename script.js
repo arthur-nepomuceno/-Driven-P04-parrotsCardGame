@@ -1,41 +1,31 @@
-// requesting number of cards to play
-// it must be an even number between 4 and 14
-let numberOfCards = 1
-while (numberOfCards % 2 != 0 || numberOfCards < 4 || numberOfCards > 14) {
+// ===============================================================================
+// ==================== 1.0 - Building the deck on the screen ====================
+// ===============================================================================
+
+let num = 1
+while (num % 2 != 0 || num < 4 || num > 14) {
     alert("Por favor, escolha um NÚMERO PAR entre 4 e 14.")
-    numberOfCards = Number(prompt("Com quantas cartas quer jogar?"));
+    num = Number(prompt("Com quantas cartas quer jogar?"));
 }
 
+const arrImages = ["bobrossparrot.gif","explodyparrot.gif","fiestaparrot.gif",
+"metalparrot.gif","revertitparrot.gif","tripletsparrot.gif","unicornparrot.gif"]
 
-
-// bringing the list of images to work with
-let listOfImages = [
-    "bobrossparrot.gif","explodyparrot.gif",
-    "fiestaparrot.gif","metalparrot.gif",
-    "revertitparrot.gif","tripletsparrot.gif",
-    "unicornparrot.gif"]
-// creating the deck of images
-function deckOfImages(n) {
-    let deckOfImages = []
-    for (let i = 0; i < n/2; i++) {
-        deckOfImages.push(listOfImages[i]);
-        deckOfImages.push(listOfImages[i]);
-    }    
-    return deckOfImages;
+const deckOfImages = [];    
+for (let i = 0; i < num/2; i++) {
+    deckOfImages.push(arrImages[i]);
+    deckOfImages.push(arrImages[i]);
 }
-// function to shuffle he deck
+
 function comparer() { 
     return Math.random() - 0.5; 
 }
-// shufflig the deck
-let deckShuffled = deckOfImages(numberOfCards).sort(comparer);
+const deckShuffled = deckOfImages.sort(comparer);
 
-
-// creating the display of the cards on the screen
 const deck = document.querySelector(".deck");
-deck.setAttribute(`style`, `width: ${(numberOfCards/2 * 118) + ((numberOfCards/2) * 34)}px`)
-for (let n = 0; n < numberOfCards; n++) {
-    // bringing card html inside javaScript code
+deck.setAttribute(`style`, `width: ${(num/2 * 118) + ((num/2) * 34)}px`)
+
+for (let n = 0; n < num; n++) {
     let card =  `<div class="card" onclick="flipCard(this)">
                     <div class="back">
                         <img src="./img/back.png" alt="">
@@ -44,82 +34,98 @@ for (let n = 0; n < numberOfCards; n++) {
                         <img src="./img/${deckShuffled[n]}" alt="" srcset="">
                     </div>
                 </div>`
-
     deck.innerHTML += card;
 }
 
+// ===============================================================================
+// ====================== 2.0 - Building the flip function =======================
+// ===============================================================================
 
 let flips = 0;
 let score = 0;
 let card = "";
 let back = "";
 let front = "";
-let flippedCards = [];
-
-// creating the function to flip the cards
+let cardsFlipped = {one:"", two:""};
 function flipCard(clicked) {
-    flips++
 
-    card = clicked;
-    back = card.querySelector(".back");
-    front = card.querySelector(".front");
-    image = front.querySelector("img").src;
+    if (cardsFlipped.one == "" && cardsFlipped.two == "") {
+        flips++
+        let flippedCard = {card:"", back:"", front:"", image:""};        
 
-    let flippedCard = {card:"", back:"", front:"", image:""}; //a linha que fez a diferença
-    flippedCard.card = card;
-    flippedCard.back = back;
-    flippedCard.front = front;
-    flippedCard.image = image;
+        flippedCard.card = clicked;
+        flippedCard.back = clicked.querySelector(".back");
+        flippedCard.front = clicked.querySelector(".front");
+        flippedCard.image = clicked.querySelector(".front").querySelector("img").src;
 
-    back.classList.toggle("flip");
-    front.classList.toggle("flip");
-    card.setAttribute("onclick", "");
+        cardsFlipped.one = flippedCard;
 
-    flippedCards.push(flippedCard);
+        flippedCard.card.setAttribute("onclick", "");
+        flippedCard.back.classList.toggle("flip");
+        flippedCard.front.classList.toggle("flip");
 
-    isEqual();
-    isOver();    
+    } else if (cardsFlipped.one != "" && cardsFlipped.two == "") {
+        flips++
+        let flippedCard = {card:"", back:"", front:"", image:""};        
+
+        flippedCard.card = clicked;
+        flippedCard.back = clicked.querySelector(".back");
+        flippedCard.front = clicked.querySelector(".front");
+        flippedCard.image = clicked.querySelector(".front").querySelector("img").src;
+
+        cardsFlipped.two = flippedCard;
+        
+        flippedCard.card.setAttribute("onclick", "");
+        flippedCard.back.classList.toggle("flip");
+        flippedCard.front.classList.toggle("flip");     
+        
+        isEqual();
+        isOver();        
+    }    
 }
 
+// ===============================================================================
+// ===================== 3.0 - Building the unflip function ======================
+// ===============================================================================
+
 function unflipCards() {
-    // get the first card and enables it to recieve clicks again
-    // get the back of the first card and turn it
-    // get the front of the first card and turn it
-
-    // get the second card and enables it to recieve clicks again
-    // get the back of the second card and turn it
-    // get the front of the second card and turn it
-
-    let cardOne = flippedCards[0].card
-    let backOne = flippedCards[0].back
-    let frontOne = flippedCards[0].front
+    let cardOne = cardsFlipped.one.card
+    let backOne = cardsFlipped.one.back
+    let frontOne = cardsFlipped.one.front
     backOne.classList.toggle("flip");
     frontOne.classList.toggle("flip");
     cardOne.setAttribute("onclick", "flipCard(this)");
 
-    let cardTwo = flippedCards[1].card
-    let backTwo = flippedCards[1].back
-    let frontTwo = flippedCards[1].front
+    let cardTwo = cardsFlipped.two.card
+    let backTwo = cardsFlipped.two.back
+    let frontTwo = cardsFlipped.two.front
     backTwo.classList.toggle("flip");
     frontTwo.classList.toggle("flip");
     cardTwo.setAttribute("onclick", "flipCard(this)");
 
-    
-    flippedCards = []; // coloquei aqui só para fazer rodar o setTimeout
+    cardsFlipped = {one:"", two:""};
 }
 
+// ===============================================================================
+// ===================== 4.0 - Building auxiliary functions ======================
+// ===============================================================================
+// = 4.1 - function for comparison
+// = 4.2 - function for reloading page
+// = 4.3 - function for end message
+// = 4.4 - function for counting time
+// = 4.5 - function for ending game
+// ===============================================================================
+// ===============================================================================
+// = 4.1 - function for comparison
+// ===============================================================================
 function isEqual() {
-    if(flippedCards.length == 2) {
-        // get the first card image in flippedCards
-        // get the second card image in flippedCards
-        // compare them
-        // return true if they are equal
-        // return false and unflip them, if they are not
-        let imageOne = flippedCards[0].image;
-        let imageTwo = flippedCards[1].image;
+    if(cardsFlipped.one != "" && cardsFlipped.two != "") {
+        
+        let imageOne = cardsFlipped.one.image;
+        let imageTwo = cardsFlipped.two.image;
 
         if (imageOne == imageTwo) {
-            flippedCards = [];
+            cardsFlipped = {one:"", two:""};
             score++
         } else {
             setTimeout(unflipCards, 1 * 1500);        
@@ -127,12 +133,16 @@ function isEqual() {
     }    
 }
 
-function isOver() {
-    if (score == numberOfCards/2) {
-        setTimeout(endMessage, 0.5 * 1000);
-        clearInterval(countingUp);
-    }
+// ================================================================================
+// = 4.2 - function for reloading page
+// ================================================================================
+function reset() {
+    document.location.reload();
 }
+
+// ================================================================================
+// = 4.3 - function for end message
+// ================================================================================
 function endMessage() {
     alert(`FIM DE JOGO!
     Você ganhou em ${flips} jogadas!
@@ -149,13 +159,15 @@ function endMessage() {
     }    
 }
 
+// ================================================================================
+// = 4.4 - function for counting time
+// ================================================================================
 let chronometer = document.querySelector(".chronometer p")
 let centiSeconds = 0;
 let deciSeconds = 0
 let seconds = 0;
 let decaSeconds = 0;
 let minuts = 0;
-
 function timeCount() {
     centiSeconds++
 
@@ -163,30 +175,28 @@ function timeCount() {
         deciSeconds++
         centiSeconds = 0;
     }
-
     if (deciSeconds == 10) {
         seconds ++
         deciSeconds = 0;
     }
-
     if (seconds == 10) {
         decaSeconds++
         seconds = 0;
     }
-
     if (decaSeconds == 6) {
         minuts ++
         decaSeconds = 0;
     }    
     chronometer.innerHTML = `0${minuts}:${decaSeconds}${seconds}:${deciSeconds}${centiSeconds}`;
 }
+let count = setInterval(timeCount, 1 * 10);
 
-let countingUp = setInterval(timeCount, 1 * 10);
-
-function reset() {
-    document.location.reload();
+// ================================================================================
+// = 4.5 - function for ending game
+// ================================================================================
+function isOver() {
+    if (score == num/2) {
+        setTimeout(endMessage, 0.5 * 1000);
+        clearInterval(count);
+    }
 }
-
-
-
-

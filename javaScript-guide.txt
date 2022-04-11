@@ -1,0 +1,114 @@
+// ===============================================================================
+// ========================= JavaScript Project GUIDE ============================
+// ===============================================================================
+
+1.0 - Building the deck on the screen
+2.0 - Building the flip function
+3.0 - Building the unflip functionn
+4.0 - Building auxiliary functions
+    4.1 - function for comparison
+    4.2 - function for reloading page
+    4.3 - function for end message
+    4.4 - function for counting time
+    4.5 - function for ending game
+
+// ===============================================================================
+// ==================== 1.0 - Building the deck on the screen ====================
+// ===============================================================================
+
+1.1 - entrance question (while)
+1.2 - built list of available images (array)
+1.3 - create an empty list to be the deck
+    1.3.1 - fill it  (for)
+1.4 - shuffle the deck
+1.5 - get deck from DOM (querySelector)
+    1.5.1 - fill it (for)
+
+// ===============================================================================
+// ====================== 2.0 - Building the flip function =======================
+// ===============================================================================
+
+2.1 - declare necessary and useful global variables
+    2.2.1 - total number of flips
+    2.2.2 - total score
+    2.2.3 - DOM of the card clicked
+    2.2.4 - DOM of it's back side
+    2.2.5 - DOM of it's front side
+    2.2.6 - declares a dictionary for the cards flipped
+
+2.2 - function flipCard()
+    2.2.1 - define conditions
+    2.2.2 - declare useful local variables
+    2.2.3 - gets information from DOM and save it (querySelector)
+    2.2.4 - flip card (toggle)
+    2.2.5 - disable click (setAttribute)
+    2.2.6 - compare cards if it is the second
+    2.2.7 - ends game if it is time to do so
+
+// ===============================================================================
+// ===================== 3.0 - Building the unflip function ======================
+// ===============================================================================
+
+3.1 - function unflipCards()
+    3.3.1 - gets information from saved cards
+    3.3.2 - flip it back again (toggle)
+    3.3.3 - enables click (setAttribute)
+    3.3.4 - cleans dictionary of flipped cards
+
+
+// ===============================================================================
+// ===================== 4.0 - Building auxiliary functions ======================
+// ===============================================================================
+// = 4.1 - function for comparison
+// = 4.2 - function for reloading page
+// = 4.3 - function for end message
+// = 4.4 - function for counting time
+// = 4.5 - function for ending game
+// ===============================================================================
+// ===============================================================================
+// = 4.1 - function for comparison
+// ===============================================================================
+
+4.1.1 - function isEqual()
+    - get the images of both cards and compares them
+        - if they are equal, it marks 1 point ont score
+            and if cleand the dictionary of flipped cards
+        - if they are not, it sets to unflip the cards after a sec
+
+// ================================================================================
+// = 4.2 - function for reloading page
+// ================================================================================
+
+4.2.2 - function reset()
+    - it uses DOM method location.reload()
+
+// ================================================================================
+// = 4.3 - function for end message
+// ================================================================================
+
+4.3.3 - function endMessage()
+    - shows an end message (alert)
+    - asks if the user wants to play again or not (while)
+
+// ================================================================================
+// = 4.4 - function for counting time
+// ================================================================================
+
+4.4.1 - declare necessary and useful variables
+    - gets .chronometer from DOM to write in it (querySelector)
+    - declares the decimal spaces for counting time
+
+4.4.2 - function timeCount()
+    - builds the chronometer on the screen (DOM.innerHTML)
+
+4.4.3 - starts counting (setInterval)
+
+// ================================================================================
+// = 4.5 - function for ending game
+// ================================================================================
+
+4.5.1 - function isOver()
+    - stablishes conditions for game to finish
+    if the score is equal to the maximum possible
+        - sends end message
+        - stop counting
